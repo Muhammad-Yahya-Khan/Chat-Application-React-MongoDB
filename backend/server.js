@@ -15,9 +15,13 @@ connectDB();
 const app = express();
 
 // Middleware
+// Normalize FRONTEND_URL to avoid mismatch due to trailing slashes
+const rawFrontendUrl = (process.env.FRONTEND_URL || "").trim();
+const FRONTEND_URL = rawFrontendUrl.replace(/\/+$/g, "");
+
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL || "*",
+        origin: FRONTEND_URL || "*",
     }),
 );
 app.use(express.json());
@@ -36,7 +40,7 @@ const server = app.listen(PORT, () => {
 // Socket.io setup
 const io = require("socket.io")(server, {
     cors: {
-        origin: process.env.FRONTEND_URL || "http://localhost:5173",
+        origin: FRONTEND_URL || "http://localhost:5173",
         methods: ["GET", "POST"],
     },
 });
