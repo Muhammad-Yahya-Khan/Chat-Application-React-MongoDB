@@ -12,7 +12,7 @@ function Chat({ user, onLogout }) {
 
     // Initialize socket connection
     useEffect(() => {
-        const newSocket = io("http://localhost:5000");
+        const newSocket = io(import.meta.env.VITE_BACKEND_URL);
         setSocket(newSocket);
 
         // Emit user online event
@@ -30,7 +30,7 @@ function Chat({ user, onLogout }) {
             try {
                 const token = localStorage.getItem("token");
                 const response = await fetch(
-                    "http://localhost:5000/api/users",
+                    `${import.meta.env.VITE_BACKEND_URL}/api/users`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ function Chat({ user, onLogout }) {
                 try {
                     const token = localStorage.getItem("token");
                     const response = await fetch(
-                        `http://localhost:5000/api/messages/${selectedUser._id}`,
+                        `${import.meta.env.VITE_BACKEND_URL}/api/messages/${selectedUser._id}`,
                         {
                             headers: {
                                 Authorization: `Bearer ${token}`,
@@ -110,7 +110,7 @@ function Chat({ user, onLogout }) {
         try {
             const token = localStorage.getItem("token");
             const response = await fetch(
-                "http://localhost:5000/api/messages/send",
+                `${import.meta.env.VITE_BACKEND_URL}/api/messages/send`,
                 {
                     method: "POST",
                     headers: {
