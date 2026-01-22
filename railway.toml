@@ -1,5 +1,0 @@
-[build]
-builder = "NIXPACKS"  # Railway automatically detects Node
-
-[deploy]
-startCommand = "cd backend && npm start"
